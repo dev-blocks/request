@@ -1,0 +1,14 @@
+{
+	"name": "dev-blocks/request",
+	"title": "Request",
+	"category": "widgets",
+	"icon": "arrow-right-alt2",
+	"description": "Request from your client to the moon, with a Gutenberg block.",
+	"textdomain": "dev-blocks",
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
