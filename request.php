@@ -58,3 +58,25 @@ function dev_blocks_request_block_init() {
 	) );
 }
 add_action( 'init', 'dev_blocks_request_block_init' );
+
+
+/**
+ * Register dev-blocks category
+ *
+ * @param array $categories Current block categories.
+ * @param array  post Post.
+ * @return array Extended block categories array.
+ */
+function register_dev_blocks_function( $categories, $post ) {
+	return array_merge(
+		$categories,
+		array(
+			array(
+				'slug' => 'dev-blocks',
+				'title' => __( 'Development Blocks', 'dev-blocks' ),
+			),
+		)
+	);
+}
+add_filter( 'block_categories', 'register_dev_blocks_function', 10, 2 );
+

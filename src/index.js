@@ -19,7 +19,7 @@ registerBlockType( 'dev-blocks/request', {
 		'Request from your client to the moon, with a Gutenberg block.',
 		'dev-blocks'
 	),
-	category: 'widgets',
+	category: 'dev-blocks',
 
 	icon: 'arrow-right-alt2',
 
