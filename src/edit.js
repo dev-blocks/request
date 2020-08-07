@@ -10,7 +10,7 @@ import { map, values, filter } from 'lodash';
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, RichText } from '@wordpress/block-editor';
 import { useState, useRef, useCallback, useEffect, Fragment } from '@wordpress/element';
-import { PanelBody, SelectControl } from '@wordpress/components';
+import { Panel, PanelBody, SelectControl, CheckboxControl } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -55,6 +55,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 				// Pick up the first namespace as default.
 				if ( ! namespace ) {
 					setNamespace( data?.[ 0 ]?.label );
+					setPlaceholder( `[${ namespace }]. Picking up endpoints ...` );
 				}
 			} )
 			.catch( console.error );
@@ -72,7 +73,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 		if ( endpoints.length ) {
 			setPlaceholder( `[${ namespace }] ${ endpoints.length } endpoints. Type / ...` );
 		} else {
-			setPlaceholder( `[${ namespace }]. Picking up endpoints ...` );
+			setPlaceholder( `No endpoints for [${ namespace }]` );
 		}
 	}, [ namespace, endpoints ] );
 
@@ -89,18 +90,44 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			.catch( console.error );
 	}, [ namespace, filterMethods ] );
 
+
+	const methodFilterHandler = useCallback( ( method, name ) => ( value ) => {
+		setFilterMethods( {
+			...filterMethods,
+			[ name ]: {
+				...method,
+				enabled: value,
+			},
+		} );
+	} );
+
 	return (
 		<Fragment>
 			<InspectorControls>
 				{ ! endpointId && (
-					<PanelBody title={ __( 'Namespaces' ) }>
-						<SelectControl
-							label={ __( 'Namespace' ) }
-							value={ namespace }
-							onChange={ setNamespace }
-							options={ namespaces }
-						/>
-					</PanelBody>
+					<Panel>
+						<PanelBody title={ __( 'Namespaces' ) }>
+							<SelectControl
+								label={ __( 'Namespace' ) }
+								value={ namespace }
+								onChange={ setNamespace }
+								options={ namespaces }
+							/>
+						</PanelBody>
+
+						<PanelBody title={ __( 'Methods filter' ) } initialOpen={ false }>
+							<div className={ `${ className }__methods_filter` }>
+								{ map( METHODS, ( method, name ) => (
+									<CheckboxControl
+										key={ name }
+										label={ method.label }
+										onChange={ methodFilterHandler( method, name ) }
+										checked={ filterMethods[ name ].enabled }
+									/>
+								) ) }
+							</div>
+						</PanelBody>
+					</Panel>
 				) }
 			</InspectorControls>
 			<div className={ className }>

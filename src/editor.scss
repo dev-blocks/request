@@ -43,3 +43,13 @@
 .endpoint-method.is-patch {
 	background-color: #ffe;
 }
+
+// Inspector Controls - Methods filter.
+.wp-block-dev-blocks-request__methods_filter {
+	.components-base-control {
+		margin: 0;
+		.components-base-control__field {
+			margin: 0;
+		}
+	}
+}
