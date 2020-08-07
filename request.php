@@ -17,6 +17,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
  */
+
 function dev_blocks_request_block_init() {
 	$dir = dirname( __FILE__ );
 
@@ -80,3 +81,11 @@ function register_dev_blocks_function( $categories, $post ) {
 }
 add_filter( 'block_categories', 'register_dev_blocks_function', 10, 2 );
 
+/**
+ * Register dev-blocks endpoints
+ */
+require_once 'class-dev-blocks-endpoints.php';
+add_action( 'rest_api_init', function () {
+	$controler = new Slug_Custom_Route;
+	$controler->register_routes();
+} );
