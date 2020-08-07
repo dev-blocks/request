@@ -19,27 +19,27 @@
 	color: #888;
 }
 
-.request__endpoint-edit__methods-content .components-menu-item__button.is-get:focus:not(:disabled),
+.request__endpoint-input__methods-content .components-menu-item__button.is-get:focus:not(:disabled),
 .endpoint-method.is-get {
 	background-color: #efe;
 }
 
-.request__endpoint-edit__methods-content .components-menu-item__button.is-post:focus:not(:disabled),
+.request__endpoint-input__methods-content .components-menu-item__button.is-post:focus:not(:disabled),
 .endpoint-method.is-post {
 	background-color: #fef;
 }
 
-.request__endpoint-edit__methods-content .components-menu-item__button.is-delete:focus:not(:disabled),
+.request__endpoint-input__methods-content .components-menu-item__button.is-delete:focus:not(:disabled),
 .endpoint-method.is-delete {
 	background-color: #fee;
 }
 
-.request__endpoint-edit__methods-content .components-menu-item__button.is-put:focus:not(:disabled),
+.request__endpoint-input__methods-content .components-menu-item__button.is-put:focus:not(:disabled),
 .endpoint-method.is-put {
 	background-color: #eff;
 }
 
-.request__endpoint-edit__methods-content .components-menu-item__button.is-patch:focus:not(:disabled),
+.request__endpoint-input__methods-content .components-menu-item__button.is-patch:focus:not(:disabled),
 .endpoint-method.is-patch {
 	background-color: #ffe;
 }
@@ -52,4 +52,104 @@
 			margin: 0;
 		}
 	}
+}
+
+.wp-block-dev-blocks-request_argument {
+	margin-bottom: 16px;
+	border-bottom: 1px dotted #ccc;
+	padding-bottom: 10px;
+}
+
+.wp-block-dev-blocks-request_argument label {
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+}
+
+/*
+ * <EndpointInput /> component
+ */
+.request__endpoint-input {
+	display: flex;
+	height: 36px;
+}
+
+.request__endpoint-input_clean-button,
+.request__endpoint-input_submit-button {
+	position: absolute;
+	right: 0;
+}
+
+.request__endpoint-input_clean-button {
+	right: 40px;
+}
+
+.request__endpoint-input .request__endpoint-input__param {
+	display: inline-block;
+	align-self: center;
+}
+
+.request__endpoint-input label,
+.request__endpoint-input .request__endpoint-input__param input {
+	font-weight: normal;
+	background-color: transparent;
+	border: 0;
+	font-size: inherit;
+	padding: 0;
+	margin: 0;
+	align-self: center;
+}
+
+.request__endpoint-input .request__endpoint-input__param input {
+	min-width: 10px;
+	color: crimson;
+	outline: none;
+}
+
+.request__endpoint-input__methods button {
+	background-color: #f5f5f5;
+	margin-right: 5px;
+	min-width: 55px;
+	display: block;
+	font-size: 10px;
+	font-weight: 600;
+	height: 30px;
+}
+
+.request__endpoint-input__methods-content .components-menu-group {
+	padding: 5px 5px;
+}
+
+.request__endpoint-input__methods-content .components-popover__content {
+	min-width: 80px;
+}
+
+.request__endpoint-input__methods-content .components-menu-item__button {
+	height: 26px;
+	padding-bottom: 5px;
+}
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-get,
+.request__endpoint-input__methods .endpoint-method.is-get {
+	color: #0A0;
+}
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-post,
+.request__endpoint-input__methods .endpoint-method.is-post {
+	color: #A0A;
+}
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-delete,
+.request__endpoint-input__methods .endpoint-method.is-delete {
+	color: #A00;
+}
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-put,
+.request__endpoint-input__methods .endpoint-method.is-put {
+	color: #0AA;
+}
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-patch,
+.request__endpoint-input__methods .endpoint-method.is-patch {
+	color: #AA0;
 }

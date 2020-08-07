@@ -60,8 +60,8 @@ const DropdownMethods = ( { className, current, methods, onSelect } ) => (
 
 const EndpointParamEdit = ( { name, value = '', placeholder = '', onChange } ) => {
 	return (
-		<div className="request__endpoint-edit__param">
-			<span className="request__endpoint-edit__slash">/</span>
+		<div className="request__endpoint-input__param">
+			<span className="request__endpoint-input__slash">/</span>
 			<AutosizeInput
 				key={ placeholder }
 				id={ name }
@@ -82,7 +82,7 @@ export default function EndpointInput( {
 	onClear,
 	onRequest,
 	wasRequested = false,
-	className = 'request__endpoint-edit',
+	className = 'request__endpoint-input',
 	methods = [],
 	method,
 	onMethodChange,
