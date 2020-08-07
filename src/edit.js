@@ -251,7 +251,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 							<ToggleControl
 								label= { __( 'Populate arguments from response', 'dev-blocks' ) }
 								onChange={ setPopulateArguments }
-								checked={ !! populateArguments }
+								checked={ populateArguments }
 							/>
 						</PanelBody>
 
@@ -264,8 +264,8 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 									<label><strong>{ name }</strong></label>
 									<TextControl
 										placeholder={ name }
-										onChange={ ( value ) => setArgument( { [ name ]: value } ) }
-										value={ populateArguments[ name ] }
+										onChange={ ( value ) => setArgumentValue( { [ name ]: value } ) }
+										value={ endpointArguments[ name ] }
 									/>
 									<div>
 										{ arg.description }
