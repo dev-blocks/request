@@ -37,6 +37,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 	const [ namespaces, storeNamespaces ] = useState( [] );
 	const [ filterMethods, setFilterMethods ] = useState( METHODS );
 	const [ populateArguments, setPopulateArguments ] = useState( false );
+	const [ isRequesting, setIsRequesting ] = useState( false );
 	const [ response, setResponse ] = useState( null );
 	const [ isErrorResponse, setIsErrorResponse ] = useState( null );
 
@@ -312,6 +313,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 						method={ endpointMethod }
 						methods={ getEndpointMethods() }
 						onClear={ cleanSelectedEndpoint }
+						isRequesting={ isRequesting }
 						wasRequested={ !! response }
 						onMethodChange={ setMethod }
 						params={ endpointParams }
@@ -319,6 +321,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 						onRequest={ ( end ) => {
 							const endpoint = `${ namespace }${ end }`;
 							setEndpointValue( endpoint );
+							setIsRequesting( true );
 							requestEndpoint( {
 								path: endpoint,
 								method: endpointMethod,
@@ -326,10 +329,12 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 							} )
 								.then( data => {
 									setIsErrorResponse( false );
+									setIsRequesting( false );
 									setResponse( data );
 								} )
 								.catch( error => {
 									setIsErrorResponse( true );
+									setIsRequesting( false );
 									setResponse( error );
 								} )
 						} }
@@ -341,6 +346,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 				className={ classNames( `${ className }__endpoint-response`, {
 					'is-error-response': isErrorResponse,
 					'has-response': !! response,
+					'is-requesting': isRequesting,
 				} ) }
 				ref={ endpointEditRef }
 			>

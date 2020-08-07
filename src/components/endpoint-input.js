@@ -80,6 +80,7 @@ export default function EndpointInput( {
 	params,
 	onClear,
 	onRequest,
+	isRequesting,
 	wasRequested = false,
 	className = 'request__endpoint-input',
 	methods = [],
@@ -147,13 +148,15 @@ export default function EndpointInput( {
 		onRequest( endpoint );
 	};
 
-	const requestIcon = wasRequested ? 'update' : 'controls-play';
+	const requestIcon = isRequesting ? 'update' : 'controls-play';
 
 	return (
 		<form
 			ref={ formRef }
 			onSubmit={ submitHandler }
-			className={ className }
+			className={ classNames( className, {
+				'is-requesting': isRequesting,
+			} ) }
 		>
 			<div className={ `${ className }__methods`} >
 				<DropdownMethods

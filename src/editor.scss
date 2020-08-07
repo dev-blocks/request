@@ -26,7 +26,6 @@
 
 
 .request__endpoint-input__methods-content .components-menu-item__button.is-get:focus:not(:disabled),
-
 .wp-block-dev-blocks-request__endpoint-method-label.is-get,
 .endpoint-method.is-get {
 	background-color: #efe;
@@ -82,6 +81,41 @@
 .request__endpoint-input {
 	display: flex;
 	height: 36px;
+
+	.request__endpoint-input__param {
+		display: inline-block;
+		align-self: center;
+	}
+
+	label,
+	.request__endpoint-input__param input {
+		font-weight: normal;
+		background-color: transparent;
+		border: 0;
+		font-size: inherit;
+		padding: 0;
+		margin: 0;
+		align-self: center;
+	}
+
+	.request__endpoint-input__param input {
+		min-width: 10px;
+		color: crimson;
+		outline: none;
+	}
+
+	&.is-requesting .request__endpoint-input_submit-button .dashicon {
+		animation: roll 1s infinite linear;
+	}
+}
+
+@keyframes roll {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .request__endpoint-input_clean-button,
@@ -92,28 +126,6 @@
 
 .request__endpoint-input_clean-button {
 	right: 40px;
-}
-
-.request__endpoint-input .request__endpoint-input__param {
-	display: inline-block;
-	align-self: center;
-}
-
-.request__endpoint-input label,
-.request__endpoint-input .request__endpoint-input__param input {
-	font-weight: normal;
-	background-color: transparent;
-	border: 0;
-	font-size: inherit;
-	padding: 0;
-	margin: 0;
-	align-self: center;
-}
-
-.request__endpoint-input .request__endpoint-input__param input {
-	min-width: 10px;
-	color: crimson;
-	outline: none;
 }
 
 .request__endpoint-input__methods button {
@@ -181,22 +193,24 @@
 
 
 /* Endpoint response */
-.wp-block-dev-blocks-request__endpoint-response span,
-.wp-block-dev-blocks-request__endpoint-response label {
-	font-family: monospace;
-	font-size: 14px;
-}
-
-.wp-block-dev-blocks-request__endpoint-response li {
-	line-height: 20px;
-}
-
-
 .wp-block-dev-blocks-request__endpoint-response {
 	display: none;
-}
 
-.wp-block-dev-blocks-request__endpoint-response.has-response {
-	display: block;
-}
+	span,
+	label {
+		font-family: monospace;
+		font-size: 14px;
+	}
 
+	li {
+		line-height: 20px;
+	}
+
+	&.has-response {
+		display: block;
+	}
+
+	&.is-requesting {
+		opacity: 0.7;
+	}
+}
