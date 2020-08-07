@@ -53,7 +53,9 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 				storeNamespaces( data );
 
 				// Pick up the first namespace as default.
-				setNamespace( data?.[ 0 ]?.label );
+				if ( ! namespace ) {
+					setNamespace( data?.[ 0 ]?.label );
+				}
 			} )
 			.catch( console.error );
 	}, [] );

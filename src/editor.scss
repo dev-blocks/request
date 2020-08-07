@@ -3,3 +3,43 @@
 	padding: 5px;
 	font-family: monospace;
 }
+
+.endpoint-id,
+.endpoint-method {
+	display: inline-block;
+	align-self: center;
+}
+
+.endpoint-method {
+	font-size: 9px;
+	padding: 2px;
+	margin: 0 1px;
+	background-color: #eee;
+	border-radius: 2px;
+	color: #888;
+}
+
+.request__endpoint-edit__methods-content .components-menu-item__button.is-get:focus:not(:disabled),
+.endpoint-method.is-get {
+	background-color: #efe;
+}
+
+.request__endpoint-edit__methods-content .components-menu-item__button.is-post:focus:not(:disabled),
+.endpoint-method.is-post {
+	background-color: #fef;
+}
+
+.request__endpoint-edit__methods-content .components-menu-item__button.is-delete:focus:not(:disabled),
+.endpoint-method.is-delete {
+	background-color: #fee;
+}
+
+.request__endpoint-edit__methods-content .components-menu-item__button.is-put:focus:not(:disabled),
+.endpoint-method.is-put {
+	background-color: #eff;
+}
+
+.request__endpoint-edit__methods-content .components-menu-item__button.is-patch:focus:not(:disabled),
+.endpoint-method.is-patch {
+	background-color: #ffe;
+}
