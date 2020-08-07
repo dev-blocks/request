@@ -33,7 +33,7 @@ const argumentsReducer = ( currentState, newState ) => ( {
 export default function RequestEdit( { className, attributes, setAttributes } ) {
 	// State.
 	const [ placeholder, setPlaceholder ] = useState( __( 'Type / to show available endpoints', 'dev-blocks' ) );
-	const [ endpoints, setEndpoints ] = useState( [] );
+	const [ endpoints, storeEndpoints ] = useState( [] );
 	const [ namespaces, storeNamespaces ] = useState( [] );
 	const [ filterMethods, setFilterMethods ] = useState( METHODS );
 	const [ populateArguments, setPopulateArguments ] = useState( false );
@@ -118,7 +118,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			path: namespace,
 			filterMethods: filterMethodsArray,
 		} )
-			.then( setEndpoints )
+			.then( storeEndpoints )
 			.catch( console.error );
 	}, [ namespace, filterMethods ] );
 
