@@ -8,7 +8,7 @@ import classNames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { useState, useRef, useEffect } from '@wordpress/element';
+import { useRef, useEffect } from '@wordpress/element';
 import { Button, Dropdown, NavigableMenu, MenuItem, MenuGroup } from '@wordpress/components';
 
 const DropdownMethods = ( { className, current, methods, onSelect } ) => (

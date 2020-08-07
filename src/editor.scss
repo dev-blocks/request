@@ -19,39 +19,41 @@
 	color: #888;
 }
 
+.request__endpoint-input__methods-content .components-menu-item__button {
+	height: 26px;
+	padding-bottom: 5px;
+}
+
+
 .request__endpoint-input__methods-content .components-menu-item__button.is-get:focus:not(:disabled),
+
+.wp-block-dev-blocks-request__endpoint-method-label.is-get,
 .endpoint-method.is-get {
 	background-color: #efe;
 }
 
 .request__endpoint-input__methods-content .components-menu-item__button.is-post:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-post,
 .endpoint-method.is-post {
 	background-color: #fef;
 }
 
 .request__endpoint-input__methods-content .components-menu-item__button.is-delete:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-delete,
 .endpoint-method.is-delete {
 	background-color: #fee;
 }
 
 .request__endpoint-input__methods-content .components-menu-item__button.is-put:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-put,
 .endpoint-method.is-put {
 	background-color: #eff;
 }
 
 .request__endpoint-input__methods-content .components-menu-item__button.is-patch:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-patch,
 .endpoint-method.is-patch {
 	background-color: #ffe;
-}
-
-// Inspector Controls - Methods filter.
-.wp-block-dev-blocks-request__methods_filter {
-	.components-base-control {
-		margin: 0;
-		.components-base-control__field {
-			margin: 0;
-		}
-	}
 }
 
 .wp-block-dev-blocks-request_argument {
@@ -66,9 +68,17 @@
 	font-size: 14px;
 }
 
-/*
- * <EndpointInput /> component
- */
+// Inspector Controls - Methods filter.
+.wp-block-dev-blocks-request__methods_filter {
+	.components-base-control {
+		margin: 0;
+		.components-base-control__field {
+			margin: 0;
+		}
+	}
+}
+
+// <EndpointInput /> component
 .request__endpoint-input {
 	display: flex;
 	height: 36px;
@@ -124,35 +134,51 @@
 	min-width: 80px;
 }
 
-.request__endpoint-input__methods-content .components-menu-item__button {
-	height: 26px;
-	padding-bottom: 5px;
+.wp-block-dev-blocks-request__endpoint-label {
+	display: flex;
+	min-height: 30px;
 }
 
-.request__endpoint-input__methods-content .components-menu-item__button.is-get,
-.request__endpoint-input__methods .endpoint-method.is-get {
-	color: #0A0;
+.wp-block-dev-blocks-request__endpoint-method-label {
+	padding: 2px 5px;
+	border-radius: 3px;
+	margin-right: 5px;
+	align-self: center;
 }
 
-.request__endpoint-input__methods-content .components-menu-item__button.is-post,
-.request__endpoint-input__methods .endpoint-method.is-post {
-	color: #A0A;
+.wp-block-dev-blocks-request__endpoint-id-label {
+	font-weight: 600;
+	align-self: center;
+	font-family: monospace;
+	font-size: 16px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
-.request__endpoint-input__methods-content .components-menu-item__button.is-delete,
-.request__endpoint-input__methods .endpoint-method.is-delete {
-	color: #A00;
+.wp-block-dev-blocks-request__endpoint-method-label,
+.request__endpoint-input__methods-content .components-menu-item__button,
+.request__endpoint-input__methods .endpoint-method {
+	&.is-get {
+		color: #0A0;
+	}
+
+	&.is-post {
+		color: #A0A;
+	}
+
+	&.is-delete {
+		color: #A00;
+	}
+
+	&.is-put {
+		color: #0AA;
+	}
+
+	&.is-patch {
+		color: #AA0;
+	}
 }
 
-.request__endpoint-input__methods-content .components-menu-item__button.is-put,
-.request__endpoint-input__methods .endpoint-method.is-put {
-	color: #0AA;
-}
-
-.request__endpoint-input__methods-content .components-menu-item__button.is-patch,
-.request__endpoint-input__methods .endpoint-method.is-patch {
-	color: #AA0;
-}
 
 /* Endpoint response */
 .wp-block-dev-blocks-request__endpoint-response span,

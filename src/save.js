@@ -1,11 +1,11 @@
 
 /**
- * WordPress dependencies
+ * Internal dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { description } from './index';
 
 export default function save() {
 	return (
-		<p>{ __( 'Request – hello from the saved content!', 'dev-blocks' ) }</p>
+		<p>{ description }</p>
 	);
 }

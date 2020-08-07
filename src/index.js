@@ -14,12 +14,14 @@ import Edit from './edit';
 import save from './save';
 import attributes from './attributes';
 
+export const description = __(
+	'Request from your client to the moon, with a Gutenberg block.',
+	'dev-blocks'
+);
+
 registerBlockType( 'dev-blocks/request', {
 	title: __( 'Request', 'dev-blocks' ),
-	description: __(
-		'Request from your client to the moon, with a Gutenberg block.',
-		'dev-blocks'
-	),
+	description,
 	category: 'dev-blocks',
 
 	attributes,

@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { map, values, filter } from 'lodash';
+import { map, values, filter, reduce, keys } from 'lodash';
 import classNames from 'classnames';
 import JSONTree from 'react-json-tree';
 
@@ -131,6 +131,24 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 		endpointEditRef.current.children[ 0 ].style.backgroundColor = 'inherit';
 	}, [ response ] );
 
+	/*
+	 * Populate arguments from endpoint response
+	 * to the block inspector.
+	 */
+	useEffect( () => {
+		if ( ! response || ! populateArguments ) {
+			return;
+		}
+
+		setPopulateArguments(
+			reduce( keys( getEndpointArguments() ), ( acc, part ) => ( {
+				...acc,
+				[ part ]: response[ part ],
+			} ), {} )
+		);
+	}, [ response ] );
+
+
 	const methodFilterHandler = useCallback( ( method, name ) => ( value ) => {
 		setFilterMethods( {
 			...filterMethods,
@@ -168,9 +186,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			return [];
 		}
 
-		return( filter(
-				subEndpoints,
-				( { methods } ) => methods.includes( endpointMethod ) )
+		return ( filter( subEndpoints, ( { methods } ) => methods.includes( endpointMethod ) )
 		)?.[ 0 ]?.args;
 	};
 
@@ -221,13 +237,21 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 				{ endpointId && (
 					<Panel>
 						<PanelBody title={ __( 'Endpoint' ) }>
-							<div>{ endpointId }</div>
-							<div>{ endpointMethod }</div>
+							<div className={ `${ className }__endpoint-label` }>
+								<span
+									className={ classNames( `${ className }__endpoint-method-label`, {
+										[ `is-${ ( endpointMethod || '' ).toLowerCase() }` ]: !! endpointMethod,
+									} ) }
+								>
+									{ endpointMethod }
+								</span>
+								<span className={ `${ className }__endpoint-id-label` }>{ endpointId }</span>
+							</div>
 
 							<ToggleControl
 								label= { __( 'Populate arguments from response', 'dev-blocks' ) }
 								onChange={ setPopulateArguments }
-								checked={ populateArguments }
+								checked={ !! populateArguments }
 							/>
 						</PanelBody>
 
