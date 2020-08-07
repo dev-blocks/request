@@ -3,19 +3,22 @@
  */
 import { __ } from '@wordpress/i18n';
 import { RichText } from '@wordpress/block-editor';
-import { useState, useRef, useCallback } from '@wordpress/element';
+import { useState, useRef, useCallback, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import { endpointsAutocompleter } from './components/autocomplete';
+import { requestNamespaces } from './utils/request-api';
+
 
 import './editor.scss';
 
 export default function RequestEdit( { className, attributes, setAttributes } ) {
 	// State.
-	const [ placeholder, setPlaceholder ] = useState( __( 'Type / to show available endpoints ', 'dev-blocks' ) );
+	const [ placeholder, setPlaceholder ] = useState( __( 'Type / to show available endpoints', 'dev-blocks' ) );
 	const [ endpoints, setEndpoints ] = useState( [] );
+	const [ namespaces, setNamespaces ] = useState( [] );
 
 	// Attributes - values.
 	const { value, namespace } = attributes;
@@ -26,6 +29,13 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 
 	// References.
 	const endpointRef = useRef();
+
+	// Effect Hook - Requests initial endpoints.
+	useEffect( () => {
+		requestNamespaces
+			.then( setNamespaces )
+			.catch( console.error );
+	}, [] );
 
 	return (
 		<div className={ className }>
