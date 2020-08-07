@@ -3,6 +3,8 @@
  * External dependencies
  */
 import { map, values, filter } from 'lodash';
+import classNames from 'classnames';
+import JSONTree from 'react-json-tree';
 
 /**
  * WordPress dependencies
@@ -18,8 +20,8 @@ import { Panel, PanelBody, SelectControl, CheckboxControl, TextControl, ToggleCo
 import { endpointsAutocompleter } from './components/autocomplete';
 import { requestNamespaces, requestEndpoints, requestEndpoint } from './utils/request-api';
 import EndpointInput from './components/endpoint-input';
-
 import { METHODS } from './constants';
+import { apathy, monokai } from './utils/json-tree-themes';
 
 import './editor.scss';
 
@@ -57,6 +59,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 
 	// References.
 	const endpointRef = useRef();
+	const endpointEditRef = useRef();
 
 	/*
 	 * Effect Hook - Initial request.
@@ -119,6 +122,14 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			.catch( console.error );
 	}, [ namespace, filterMethods ] );
 
+	// Hack: Remove background color from Json tree. Super hack.
+	useEffect( () => {
+		if ( ! endpointEditRef?.current?.children?.[ 0 ] ) {
+			return;
+		}
+
+		endpointEditRef.current.children[ 0 ].style.backgroundColor = 'inherit';
+	}, [ response ] );
 
 	const methodFilterHandler = useCallback( ( method, name ) => ( value ) => {
 		setFilterMethods( {
@@ -298,6 +309,22 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 									setResponse( error );
 								} )
 						} }
+					/>
+				) }
+			</div>
+
+			<div
+				className={ classNames( `${ className }__endpoint-response`, {
+					'is-error-response': isErrorResponse,
+					'has-response': !! response,
+				} ) }
+				ref={ endpointEditRef }
+			>
+				{ ( response ) && (
+					<JSONTree
+						data={ response }
+						invertTheme={ true }
+						theme={ monokai }
 					/>
 				) }
 			</div>

@@ -5,7 +5,6 @@ import { map, reduce } from 'lodash';
 import AutosizeInput from 'react-input-autosize';
 import classNames from 'classnames';
 
-
 /**
  * WordPress dependencies
  */

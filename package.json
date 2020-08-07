@@ -15,5 +15,11 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^12.1.1"
+	},
+	"dependencies": {
+		"babel-runtime": "^6.26.0",
+		"classnames": "^2.2.6",
+		"react-input-autosize": "^2.2.2",
+		"react-json-tree": "^0.12.0"
 	}
 }

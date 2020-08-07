@@ -153,3 +153,24 @@
 .request__endpoint-input__methods .endpoint-method.is-patch {
 	color: #AA0;
 }
+
+/* Endpoint response */
+.wp-block-dev-blocks-request__endpoint-response span,
+.wp-block-dev-blocks-request__endpoint-response label {
+	font-family: monospace;
+	font-size: 14px;
+}
+
+.wp-block-dev-blocks-request__endpoint-response li {
+	line-height: 20px;
+}
+
+
+.wp-block-dev-blocks-request__endpoint-response {
+	display: none;
+}
+
+.wp-block-dev-blocks-request__endpoint-response.has-response {
+	display: block;
+}
+
