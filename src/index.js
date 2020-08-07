@@ -12,6 +12,7 @@ import './style.scss';
  */
 import Edit from './edit';
 import save from './save';
+import attributes from './attributes';
 
 registerBlockType( 'dev-blocks/request', {
 	title: __( 'Request', 'dev-blocks' ),
@@ -20,6 +21,8 @@ registerBlockType( 'dev-blocks/request', {
 		'dev-blocks'
 	),
 	category: 'dev-blocks',
+
+	attributes,
 
 	icon: 'arrow-right-alt2',
 
