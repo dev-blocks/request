@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { map, values, filter, reduce, keys, mapValues, each } from 'lodash';
+import { map, values, filter, reduce, keys, mapValues } from 'lodash';
 import classNames from 'classnames';
 import JSONTree from 'react-json-tree';
 
@@ -21,7 +21,7 @@ import { endpointsAutocompleter } from './components/autocomplete';
 import { requestNamespaces, requestEndpoints, requestEndpoint } from './utils/request-api';
 import EndpointInput from './components/endpoint-input';
 import { METHODS } from './constants';
-import { apathy, monokai } from './utils/json-tree-themes';
+import { monokai } from './utils/json-tree-themes';
 
 import './editor.scss';
 
@@ -46,6 +46,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 	const [ isRequesting, setIsRequesting ] = useState( false );
 	const [ response, setResponse ] = useState( null );
 	const [ isErrorResponse, setIsErrorResponse ] = useState( null );
+	const [ invertTheme, setInvertTheme ] = useState( false );
 
 	const [ endpointArgumentValues, setArgumentValue ] = useReducer( argumentsReducer, {} );
 
@@ -129,14 +130,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			.catch( console.error );
 	}, [ namespace, filterMethods ] );
 
-	// Hack: Remove background color from Json tree. Super hack.
 	useEffect( () => {
-		if ( ! endpointEditRef?.current?.children?.[ 0 ] ) {
-			return;
-		}
-
-		endpointEditRef.current.children[ 0 ].style.backgroundColor = 'inherit';
-
 		// Populate args values reducer if it isn't populated yet.
 		if ( ! Object.keys( endpointArgumentValues ).length ) {
 			setArgumentValue( mapValues( response, () => undefined ) );
@@ -170,6 +164,21 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			},
 		} );
 	} );
+
+	// Response styles.
+	useEffect( () => {
+	    setInvertTheme( /is-style-light/.test( className ) );
+
+		// Hack: Remove background color from Json tree. Super hack.
+		if ( ! endpointEditRef?.current?.children?.[ 0 ] ) {
+			return;
+		}
+
+		setTimeout( () => {
+			endpointEditRef.current.children[ 0 ].style.backgroundColor = 'inherit';
+		}, 0 );
+
+	}, [ response, className ] );
 
 	const getEndpoint = () => {
 		const endpoint = filter( endpoints, ( { id } ) => id === endpointId );
@@ -233,7 +242,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 		}, 0 );
 	};
 
-	console.log( { endpointArgumentValues } );
+	const baseCSSClass = 'wp-block-dev-blocks-request';
 
 	return (
 		<Fragment>
@@ -250,7 +259,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 						</PanelBody>
 
 						<PanelBody title={ __( 'Methods filter' ) } initialOpen={ false }>
-							<div className={ `${ className }__methods_filter` }>
+							<div className={ `${ baseCSSClass }__methods_filter` }>
 								{ map( METHODS, ( method, name ) => (
 									<CheckboxControl
 										key={ name }
@@ -266,15 +275,15 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 				{ endpointId && (
 					<Panel>
 						<PanelBody title={ __( 'Endpoint' ) }>
-							<div className={ `${ className }__endpoint-label` }>
+							<div className={ `${ baseCSSClass }__endpoint-label` }>
 								<span
-									className={ classNames( `${ className }__endpoint-method-label`, {
+									className={ classNames( `${ baseCSSClass }__endpoint-method-label`, {
 										[ `is-${ ( endpointMethod || '' ).toLowerCase() }` ]: !! endpointMethod,
 									} ) }
 								>
 									{ endpointMethod }
 								</span>
-								<span className={ `${ className }__endpoint-id-label` }>{ endpointId }</span>
+								<span className={ `${ baseCSSClass }__endpoint-id-label` }>{ endpointId }</span>
 							</div>
 
 							<ToggleControl
@@ -288,7 +297,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 							{ map( getEndpointArguments(), ( arg, name ) => (
 								<div
 									key={ `arg-${ name }` }
-									className={ `${ className }_argument-${ name } ${ className }_argument` }
+									className={ `${ baseCSSClass }_argument-${ name } ${ baseCSSClass }_argument` }
 								>
 									<label><strong>{ name }</strong></label>
 									<TextControl
@@ -370,7 +379,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			</div>
 
 			<div
-				className={ classNames( `${ className }__endpoint-response`, {
+				className={ classNames( className, `${ baseCSSClass }__endpoint-response`, {
 					'is-error-response': isErrorResponse,
 					'has-response': !! response,
 					'is-requesting': isRequesting,
@@ -380,7 +389,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 				{ ( response ) && (
 					<JSONTree
 						data={ response }
-						invertTheme={ true }
+						invertTheme={ invertTheme }
 						theme={ monokai }
 					/>
 				) }

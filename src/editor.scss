@@ -121,11 +121,11 @@
 .request__endpoint-input_clean-button,
 .request__endpoint-input_submit-button {
 	position: absolute;
-	right: 0;
+	right: 5px;
 }
 
 .request__endpoint-input_clean-button {
-	right: 40px;
+	right: 45px;
 }
 
 .request__endpoint-input__methods button {
@@ -191,7 +191,6 @@
 	}
 }
 
-
 /* Endpoint response */
 .wp-block-dev-blocks-request__endpoint-response {
 	display: none;
@@ -210,7 +209,45 @@
 		display: block;
 	}
 
+	&.is-error-response {
+		position: relative;
+		&::after {
+			content: 'error';
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			font-size: 12px;
+			background-color: red;
+			color: white;
+			padding: 0 5px;
+			border-radius: 5px;
+			line-height: 18px;
+		}
+	}
+
 	&.is-requesting {
 		opacity: 0.7;
+	}
+}
+
+.wp-block-dev-blocks-request {
+	&.is-style-light {
+		background-color: transparent;
+	}
+
+	&.is-style-dark {
+		background-color: #000;
+		color: white;
+		label {
+			color: #0f0;
+		}
+
+		.request__endpoint-input__param input {
+			color: #f44;
+
+			&::placeholder {
+				color: #aaa;
+			}
+		}
 	}
 }

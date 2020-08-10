@@ -28,6 +28,11 @@ registerBlockType( 'dev-blocks/request', {
 
 	icon: 'arrow-right-alt2',
 
+	styles: [
+		{ name: 'light', label: __( 'Light', 'dev-blocks' ) , isDefault: true },
+		{ name: 'dark', label: __( 'Dark', 'dev-blocks' ) },
+	],
+
 	supports: {
 		html: false,
 	},
