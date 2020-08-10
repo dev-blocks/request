@@ -1,0 +1,216 @@
+.wp-block-dev-blocks-request {
+  font-size: 18px;
+  padding: 5px;
+  font-family: monospace; }
+
+.endpoint-id,
+.endpoint-method {
+  display: inline-block;
+  -ms-grid-row-align: center;
+      align-self: center; }
+
+.endpoint-method {
+  font-size: 9px;
+  padding: 2px;
+  margin: 0 1px;
+  background-color: #eee;
+  border-radius: 2px;
+  color: #888; }
+
+.request__endpoint-input__methods-content .components-menu-item__button {
+  height: 26px;
+  padding-bottom: 5px; }
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-get:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-get,
+.endpoint-method.is-get {
+  background-color: #efe; }
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-post:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-post,
+.endpoint-method.is-post {
+  background-color: #fef; }
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-delete:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-delete,
+.endpoint-method.is-delete {
+  background-color: #fee; }
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-put:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-put,
+.endpoint-method.is-put {
+  background-color: #eff; }
+
+.request__endpoint-input__methods-content .components-menu-item__button.is-patch:focus:not(:disabled),
+.wp-block-dev-blocks-request__endpoint-method-label.is-patch,
+.endpoint-method.is-patch {
+  background-color: #ffe; }
+
+.wp-block-dev-blocks-request_argument {
+  margin-bottom: 16px;
+  border-bottom: 1px dotted #ccc;
+  padding-bottom: 10px; }
+
+.wp-block-dev-blocks-request_argument label {
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px; }
+
+.wp-block-dev-blocks-request__methods_filter .components-base-control {
+  margin: 0; }
+  .wp-block-dev-blocks-request__methods_filter .components-base-control .components-base-control__field {
+    margin: 0; }
+
+.request__endpoint-input {
+  display: flex;
+  height: 36px; }
+  .request__endpoint-input .request__endpoint-input__param {
+    display: inline-block;
+    -ms-grid-row-align: center;
+        align-self: center; }
+  .request__endpoint-input label,
+  .request__endpoint-input .request__endpoint-input__param input {
+    font-weight: normal;
+    background-color: transparent;
+    border: 0;
+    font-size: inherit;
+    padding: 0;
+    margin: 0;
+    -ms-grid-row-align: center;
+        align-self: center; }
+  .request__endpoint-input .request__endpoint-input__param input {
+    min-width: 10px;
+    color: crimson;
+    outline: none; }
+  .request__endpoint-input.is-requesting .request__endpoint-input_submit-button .dashicon {
+    -webkit-animation: roll 1s infinite linear;
+            animation: roll 1s infinite linear; }
+
+@-webkit-keyframes roll {
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes roll {
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } }
+
+.request__endpoint-input_clean-button,
+.request__endpoint-input_submit-button {
+  position: absolute;
+  right: 5px; }
+
+.request__endpoint-input_clean-button {
+  right: 45px; }
+
+.request__endpoint-input__methods button {
+  background-color: #f5f5f5;
+  margin-right: 5px;
+  min-width: 55px;
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  height: 30px; }
+
+.request__endpoint-input__methods-content .components-menu-group {
+  padding: 5px 5px; }
+
+.request__endpoint-input__methods-content .components-popover__content {
+  min-width: 80px; }
+
+.wp-block-dev-blocks-request__endpoint-label {
+  display: flex;
+  min-height: 30px; }
+
+.wp-block-dev-blocks-request__endpoint-method-label {
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-right: 5px;
+  -ms-grid-row-align: center;
+      align-self: center; }
+
+.wp-block-dev-blocks-request__endpoint-id-label {
+  font-weight: 600;
+  -ms-grid-row-align: center;
+      align-self: center;
+  font-family: monospace;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  overflow: hidden; }
+
+.wp-block-dev-blocks-request__endpoint-method-label.is-get,
+.request__endpoint-input__methods-content .components-menu-item__button.is-get,
+.request__endpoint-input__methods .endpoint-method.is-get {
+  color: #0A0; }
+
+.wp-block-dev-blocks-request__endpoint-method-label.is-post,
+.request__endpoint-input__methods-content .components-menu-item__button.is-post,
+.request__endpoint-input__methods .endpoint-method.is-post {
+  color: #A0A; }
+
+.wp-block-dev-blocks-request__endpoint-method-label.is-delete,
+.request__endpoint-input__methods-content .components-menu-item__button.is-delete,
+.request__endpoint-input__methods .endpoint-method.is-delete {
+  color: #A00; }
+
+.wp-block-dev-blocks-request__endpoint-method-label.is-put,
+.request__endpoint-input__methods-content .components-menu-item__button.is-put,
+.request__endpoint-input__methods .endpoint-method.is-put {
+  color: #0AA; }
+
+.wp-block-dev-blocks-request__endpoint-method-label.is-patch,
+.request__endpoint-input__methods-content .components-menu-item__button.is-patch,
+.request__endpoint-input__methods .endpoint-method.is-patch {
+  color: #AA0; }
+
+/* Endpoint response */
+.wp-block-dev-blocks-request__endpoint-response {
+  display: none; }
+  .wp-block-dev-blocks-request__endpoint-response span,
+  .wp-block-dev-blocks-request__endpoint-response label {
+    font-family: monospace;
+    font-size: 14px; }
+  .wp-block-dev-blocks-request__endpoint-response li {
+    line-height: 20px; }
+  .wp-block-dev-blocks-request__endpoint-response.has-response {
+    display: block; }
+  .wp-block-dev-blocks-request__endpoint-response.is-error-response {
+    position: relative; }
+    .wp-block-dev-blocks-request__endpoint-response.is-error-response::after {
+      content: 'error';
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 12px;
+      background-color: red;
+      color: white;
+      padding: 0 5px;
+      border-radius: 5px;
+      line-height: 18px; }
+  .wp-block-dev-blocks-request__endpoint-response.is-requesting {
+    opacity: 0.7; }
+
+.wp-block-dev-blocks-request.is-style-light {
+  background-color: transparent; }
+
+.wp-block-dev-blocks-request.is-style-dark {
+  background-color: #000;
+  color: white; }
+  .wp-block-dev-blocks-request.is-style-dark label {
+    color: #0f0; }
+  .wp-block-dev-blocks-request.is-style-dark .request__endpoint-input__param input {
+    color: #f44; }
+    .wp-block-dev-blocks-request.is-style-dark .request__endpoint-input__param input::-moz-placeholder {
+      color: #aaa; }
+    .wp-block-dev-blocks-request.is-style-dark .request__endpoint-input__param input:-ms-input-placeholder {
+      color: #aaa; }
+    .wp-block-dev-blocks-request.is-style-dark .request__endpoint-input__param input::-ms-input-placeholder {
+      color: #aaa; }
+    .wp-block-dev-blocks-request.is-style-dark .request__endpoint-input__param input::placeholder {
+      color: #aaa; }
+
+
+/*# sourceMappingURL=index.css.map*/
