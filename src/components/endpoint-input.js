@@ -81,7 +81,6 @@ export default function EndpointInput( {
 	onClear,
 	onRequest,
 	isRequesting,
-	wasRequested = false,
 	className = 'request__endpoint-input',
 	methods = [],
 	method,

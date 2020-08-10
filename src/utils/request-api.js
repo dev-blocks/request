@@ -8,6 +8,7 @@ import { values, mapValues, map, filter, difference } from 'lodash';
  * WordPress dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
 
 function covertEndpointDefinitionToId( def, path ) {
 	return ( def.substr( path.length ) ).replace(
@@ -58,11 +59,14 @@ export const requestNamespaces = requestEndpoints( { path: '/' } )
 	.catch( console.error );
 
 
-export const requestEndpoint = async ( { path, method, endpointArguments } ) => {
+export const requestEndpoint = async ( { path, method, endpointArgumentValues } ) => {
 	const requestProps = { path, method };
-	if ( method !== 'GET' ) {
-		requestProps.data = endpointArguments;
+	if ( endpointArgumentValues && Object.keys( endpointArgumentValues ).length ) {
+		if ( method !== 'GET' ) {
+			requestProps.data = endpointArgumentValues;
+		} else {
+			requestProps.path = addQueryArgs( requestProps.path, endpointArgumentValues );
+		}
 	}
-
 	return await apiFetch( requestProps );
 };

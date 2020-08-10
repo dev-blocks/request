@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { map, values, filter, reduce, keys } from 'lodash';
+import { map, values, filter, reduce, keys, mapValues, each } from 'lodash';
 import classNames from 'classnames';
 import JSONTree from 'react-json-tree';
 
@@ -25,10 +25,16 @@ import { apathy, monokai } from './utils/json-tree-themes';
 
 import './editor.scss';
 
-const argumentsReducer = ( currentState, newState ) => ( {
-	...currentState,
-	...newState,
-} );
+const argumentsReducer = ( currentState, newState ) => {
+	if ( newState === 'clean' ) {
+		return {};
+	}
+
+	return {
+		...currentState,
+		...newState,
+	};
+}
 
 export default function RequestEdit( { className, attributes, setAttributes } ) {
 	// State.
@@ -41,7 +47,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 	const [ response, setResponse ] = useState( null );
 	const [ isErrorResponse, setIsErrorResponse ] = useState( null );
 
-	const [ endpointArguments, setArgument ] = useReducer( argumentsReducer, {} );
+	const [ endpointArgumentValues, setArgumentValue ] = useReducer( argumentsReducer, {} );
 
 	// Attributes - values.
 	const { value, namespace, endpointId, endpointMethod, endpointValue, endpointParams } = attributes;
@@ -130,6 +136,11 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 		}
 
 		endpointEditRef.current.children[ 0 ].style.backgroundColor = 'inherit';
+
+		// Populate args values reducer if it isn't populated yet.
+		if ( ! Object.keys( endpointArgumentValues ).length ) {
+			setArgumentValue( mapValues( response, () => undefined ) );
+		}
 	}, [ response ] );
 
 	/*
@@ -141,7 +152,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			return;
 		}
 
-		setPopulateArguments(
+		setArgumentValue(
 			reduce( keys( getEndpointArguments() ), ( acc, part ) => ( {
 				...acc,
 				[ part ]: response[ part ],
@@ -176,6 +187,12 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 		return endpoint.methods;
 	};
 
+	/**
+	 * Pick up arguments from the current endpoint,
+	 * and combine the object with the arguments values reducer.
+	 *
+	 * @return {object} Arguments object, organized by argument name.
+	 */
 	const getEndpointArguments = () => {
 		const endpoint = getEndpoint();
 		if ( ! endpoint ) {
@@ -187,8 +204,14 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			return [];
 		}
 
-		return ( filter( subEndpoints, ( { methods } ) => methods.includes( endpointMethod ) )
-		)?.[ 0 ]?.args;
+		return mapValues(
+			( filter( subEndpoints, ( { methods } ) => methods.includes( endpointMethod ) ))?.[ 0 ]?.args,
+			( arg, name ) => {
+				return endpointArgumentValues?.[ name ]
+					? { ...arg, value: endpointArgumentValues[ name ] }
+					: arg
+				}
+			);
 	};
 
 	// Clean selected endpoint.
@@ -199,6 +222,9 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 		setResponse( null );
 		setMethod( null );
 		cleanEndpointParams();
+
+		setArgumentValue( 'clean' );
+
 		// Hack to focus block once it clears.
 		setTimeout( () => {
 			if ( endpointRef?.current ) {
@@ -206,6 +232,8 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 			}
 		}, 0 );
 	};
+
+	console.log( { endpointArgumentValues } );
 
 	return (
 		<Fragment>
@@ -266,7 +294,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 									<TextControl
 										placeholder={ name }
 										onChange={ ( value ) => setArgumentValue( { [ name ]: value } ) }
-										value={ endpointArguments[ name ] }
+										value={ endpointArgumentValues[ name ] }
 									/>
 									<div>
 										{ arg.description }
@@ -314,7 +342,6 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 						methods={ getEndpointMethods() }
 						onClear={ cleanSelectedEndpoint }
 						isRequesting={ isRequesting }
-						wasRequested={ !! response }
 						onMethodChange={ setMethod }
 						params={ endpointParams }
 						onParamChange={ setParam }
@@ -325,7 +352,7 @@ export default function RequestEdit( { className, attributes, setAttributes } ) 
 							requestEndpoint( {
 								path: endpoint,
 								method: endpointMethod,
-								endpointArguments,
+								endpointArgumentValues,
 							} )
 								.then( data => {
 									setIsErrorResponse( false );
