@@ -1,5 +1,4 @@
 
-
 /**
  * WordPress dependencies
  */
@@ -13,11 +12,9 @@ import './style.scss';
 import Edit from './edit';
 import save from './save';
 import attributes from './attributes';
+import { version } from '../package.json';
 
-export const description = __(
-	'Request from your client to the moon, with a Gutenberg block.',
-	'dev-blocks'
-);
+export const description = `Request from your client to the moon, with a Gutenberg block (v${ version }).`;
 
 registerBlockType( 'dev-blocks/request', {
 	title: __( 'Request', 'dev-blocks' ),
